@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+
+# HuggingFace
+.huggingface/
+cache/
+
+# Models
+checkpoints/
+*.safetensors
+*.bin
+
+# Data
+data/raw/
+data/index/
+data/processed/
+
+# Streamlit cache
+.streamlit/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
