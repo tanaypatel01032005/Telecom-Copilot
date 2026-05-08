@@ -1,0 +1,47 @@
+{
+  "mumbai": {
+    "status": "partial_outage",
+    "active_incident": true,
+    "incident_id": "INC-4821",
+    "incident_summary": "Partial 4G data outage in Mumbai due to fiber cut.",
+    "started_at": "2025-07-15T08:00:00Z",
+    "estimated_resolution": "2025-07-15T16:00:00Z",
+    "affected_services": [
+      "4G data"
+    ],
+    "compensation_eligible": true
+  },
+  "delhi": {
+    "status": "operational",
+    "active_incident": false,
+    "incident_id": null,
+    "incident_summary": null,
+    "started_at": null,
+    "estimated_resolution": null,
+    "affected_services": [],
+    "compensation_eligible": false
+  },
+  "bangalore": {
+    "status": "planned_maintenance",
+    "active_incident": true,
+    "incident_id": "MAINT-112",
+    "incident_summary": "Planned maintenance in Bangalore. 4G unavailable 2\u20135 AM.",
+    "started_at": "2025-07-15T20:30:00Z",
+    "estimated_resolution": "2025-07-15T23:00:00Z",
+    "affected_services": [
+      "4G data",
+      "5G data"
+    ],
+    "compensation_eligible": false
+  },
+  "ahmedabad": {
+    "status": "operational",
+    "active_incident": false,
+    "incident_id": null,
+    "incident_summary": null,
+    "started_at": null,
+    "estimated_resolution": null,
+    "affected_services": [],
+    "compensation_eligible": false
+  }
+}

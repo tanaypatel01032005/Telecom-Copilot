@@ -1,0 +1,1676 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "shp-2",
+  "dataset_size": 8547746171,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/architecture/train.json": {
+      "num_bytes": 13089273,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/artfundamentals/train.json": {
+      "num_bytes": 9547205,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askacademia/train.json": {
+      "num_bytes": 105908674,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askanthropology/train.json": {
+      "num_bytes": 12190294,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askbaking/train.json": {
+      "num_bytes": 69749328,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askcarguys/train.json": {
+      "num_bytes": 12630601,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askculinary/train.json": {
+      "num_bytes": 196863482,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askdocs/train.json": {
+      "num_bytes": 44907915,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askeconomics/train.json": {
+      "num_bytes": 19781341,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askengineers/train.json": {
+      "num_bytes": 165160859,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askhistorians/train.json": {
+      "num_bytes": 163715501,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askhr/train.json": {
+      "num_bytes": 36549511,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asklinguistics/train.json": {
+      "num_bytes": 12207268,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asknetsec/train.json": {
+      "num_bytes": 29432520,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askphilosophy/train.json": {
+      "num_bytes": 80330544,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askphysics/train.json": {
+      "num_bytes": 27976965,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askscience/train.json": {
+      "num_bytes": 151582068,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asksciencefiction/train.json": {
+      "num_bytes": 255684972,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asksocialscience/train.json": {
+      "num_bytes": 17629119,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askvet/train.json": {
+      "num_bytes": 22596543,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/aviation/train.json": {
+      "num_bytes": 5482465,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/booksuggestions/train.json": {
+      "num_bytes": 267102376,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/botany/train.json": {
+      "num_bytes": 4883405,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/camping/train.json": {
+      "num_bytes": 9682189,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/campingandhiking/train.json": {
+      "num_bytes": 8219409,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/catadvice/train.json": {
+      "num_bytes": 68664923,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/changemyview/train.json": {
+      "num_bytes": 621219064,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/cooking/train.json": {
+      "num_bytes": 29648565,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/cookingforbeginners/train.json": {
+      "num_bytes": 45633009,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/crochet/train.json": {
+      "num_bytes": 10945393,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/diy/train.json": {
+      "num_bytes": 31745441,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/eatcheapandhealthy/train.json": {
+      "num_bytes": 187790901,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/entrepreneur/train.json": {
+      "num_bytes": 68461634,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/espresso/train.json": {
+      "num_bytes": 11452386,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/etymology/train.json": {
+      "num_bytes": 6554200,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/excel/train.json": {
+      "num_bytes": 14170551,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/explainlikeimfive/train.json": {
+      "num_bytes": 232711939,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/fishing/train.json": {
+      "num_bytes": 5899300,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/frugal/train.json": {
+      "num_bytes": 42967189,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/gamedev/train.json": {
+      "num_bytes": 55230320,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/hiking/train.json": {
+      "num_bytes": 9486413,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/homeautomation/train.json": {
+      "num_bytes": 23889306,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/homebrewing/train.json": {
+      "num_bytes": 32427896,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/ifyoulikeblank/train.json": {
+      "num_bytes": 214732880,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/iwanttolearn/train.json": {
+      "num_bytes": 146774750,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/keto/train.json": {
+      "num_bytes": 41507422,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/legaladvice/train.json": {
+      "num_bytes": 213929707,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/linuxquestions/train.json": {
+      "num_bytes": 85249191,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/mechanicadvice/train.json": {
+      "num_bytes": 13823807,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/moviesuggestions/train.json": {
+      "num_bytes": 283617262,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/musictheory/train.json": {
+      "num_bytes": 70055400,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/outoftheloop/train.json": {
+      "num_bytes": 44846908,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/puppy101/train.json": {
+      "num_bytes": 51168150,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/running/train.json": {
+      "num_bytes": 172376378,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/screenwriting/train.json": {
+      "num_bytes": 34575617,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/sewing/train.json": {
+      "num_bytes": 25516782,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/smallbusiness/train.json": {
+      "num_bytes": 67842633,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/solotravel/train.json": {
+      "num_bytes": 98858482,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/stocks/train.json": {
+      "num_bytes": 141108214,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/suggestmeabook/train.json": {
+      "num_bytes": 465997174,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/sysadmin/train.json": {
+      "num_bytes": 41708283,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/tea/train.json": {
+      "num_bytes": 12483286,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/techsupport/train.json": {
+      "num_bytes": 34756080,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/televisionsuggestions/train.json": {
+      "num_bytes": 39599501,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/travel/train.json": {
+      "num_bytes": 86403943,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/ultralight/train.json": {
+      "num_bytes": 136718641,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/vegetarian/train.json": {
+      "num_bytes": 21576043,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/webdev/train.json": {
+      "num_bytes": 29135610,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/writing/train.json": {
+      "num_bytes": 97279028,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/zerowaste/train.json": {
+      "num_bytes": 29174787,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_academia/train.json": {
+      "num_bytes": 25266158,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_android/train.json": {
+      "num_bytes": 2214242,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_apple/train.json": {
+      "num_bytes": 14569819,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_arduino/train.json": {
+      "num_bytes": 1242404,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_askubuntu/train.json": {
+      "num_bytes": 31309612,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_aviation/train.json": {
+      "num_bytes": 7111842,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_bicycles/train.json": {
+      "num_bytes": 10560282,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_biology/train.json": {
+      "num_bytes": 1379741,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_bitcoin/train.json": {
+      "num_bytes": 1386827,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_blender/train.json": {
+      "num_bytes": 3251710,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_chemistry/train.json": {
+      "num_bytes": 2161311,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_codegolf/train.json": {
+      "num_bytes": 303421850,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_codereview/train.json": {
+      "num_bytes": 20181413,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_cooking/train.json": {
+      "num_bytes": 8871715,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_crypto/train.json": {
+      "num_bytes": 2366721,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_cs/train.json": {
+      "num_bytes": 2708342,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_datascience/train.json": {
+      "num_bytes": 1678572,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_dba/train.json": {
+      "num_bytes": 6910365,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_diy/train.json": {
+      "num_bytes": 6992485,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_drupal/train.json": {
+      "num_bytes": 2261622,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_dsp/train.json": {
+      "num_bytes": 1498395,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_electronics/train.json": {
+      "num_bytes": 21460116,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ell/train.json": {
+      "num_bytes": 4232523,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_english/train.json": {
+      "num_bytes": 22756310,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ethereum/train.json": {
+      "num_bytes": 2164772,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_gamedev/train.json": {
+      "num_bytes": 7392900,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_gis/train.json": {
+      "num_bytes": 3601862,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_graphicdesign/train.json": {
+      "num_bytes": 3470147,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_magento/train.json": {
+      "num_bytes": 4626182,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_math/train.json": {
+      "num_bytes": 186139007,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mathematica/train.json": {
+      "num_bytes": 14487292,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mathoverflow/train.json": {
+      "num_bytes": 70564072,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mechanics/train.json": {
+      "num_bytes": 2666495,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_money/train.json": {
+      "num_bytes": 9738316,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_movies/train.json": {
+      "num_bytes": 3341016,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_music/train.json": {
+      "num_bytes": 10399972,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_networkengineering/train.json": {
+      "num_bytes": 960485,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_philosophy/train.json": {
+      "num_bytes": 5073940,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_photo/train.json": {
+      "num_bytes": 7897934,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_physics/train.json": {
+      "num_bytes": 18096291,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_puzzling/train.json": {
+      "num_bytes": 11875331,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_raspberrypi/train.json": {
+      "num_bytes": 2454124,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_salesforce/train.json": {
+      "num_bytes": 4761502,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_scifi/train.json": {
+      "num_bytes": 16574198,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_security/train.json": {
+      "num_bytes": 14229672,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_serverfault/train.json": {
+      "num_bytes": 33232826,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_sharepoint/train.json": {
+      "num_bytes": 2276444,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_softwarerecs/train.json": {
+      "num_bytes": 630479,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_stackoverflow/train.json": {
+      "num_bytes": 1737731690,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_stats/train.json": {
+      "num_bytes": 13474598,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_superuser/train.json": {
+      "num_bytes": 40978039,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_tex/train.json": {
+      "num_bytes": 33046626,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_travel/train.json": {
+      "num_bytes": 9124921,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_unix/train.json": {
+      "num_bytes": 23794745,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ux/train.json": {
+      "num_bytes": 9567221,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_webapps/train.json": {
+      "num_bytes": 1830055,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_webmasters/train.json": {
+      "num_bytes": 1993995,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_wordpress/train.json": {
+      "num_bytes": 4914702,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_workplace/train.json": {
+      "num_bytes": 26310664,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/architecture/validation.json": {
+      "num_bytes": 292912,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/artfundamentals/validation.json": {
+      "num_bytes": 351699,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askacademia/validation.json": {
+      "num_bytes": 6086266,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askanthropology/validation.json": {
+      "num_bytes": 655567,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askbaking/validation.json": {
+      "num_bytes": 3631247,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askcarguys/validation.json": {
+      "num_bytes": 907147,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askculinary/validation.json": {
+      "num_bytes": 9802199,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askdocs/validation.json": {
+      "num_bytes": 2360227,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askeconomics/validation.json": {
+      "num_bytes": 1100326,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askengineers/validation.json": {
+      "num_bytes": 9708426,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askhistorians/validation.json": {
+      "num_bytes": 9671301,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askhr/validation.json": {
+      "num_bytes": 1751129,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asklinguistics/validation.json": {
+      "num_bytes": 784434,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asknetsec/validation.json": {
+      "num_bytes": 1969972,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askphilosophy/validation.json": {
+      "num_bytes": 4585232,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askphysics/validation.json": {
+      "num_bytes": 1549036,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askscience/validation.json": {
+      "num_bytes": 10054157,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asksciencefiction/validation.json": {
+      "num_bytes": 15086659,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asksocialscience/validation.json": {
+      "num_bytes": 1047596,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askvet/validation.json": {
+      "num_bytes": 1375784,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/aviation/validation.json": {
+      "num_bytes": 326393,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/booksuggestions/validation.json": {
+      "num_bytes": 16885179,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/botany/validation.json": {
+      "num_bytes": 301666,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/camping/validation.json": {
+      "num_bytes": 220762,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/campingandhiking/validation.json": {
+      "num_bytes": 583757,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/catadvice/validation.json": {
+      "num_bytes": 3021951,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/changemyview/validation.json": {
+      "num_bytes": 32834535,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/cooking/validation.json": {
+      "num_bytes": 1640479,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/cookingforbeginners/validation.json": {
+      "num_bytes": 1866737,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/crochet/validation.json": {
+      "num_bytes": 540546,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/diy/validation.json": {
+      "num_bytes": 1754909,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/eatcheapandhealthy/validation.json": {
+      "num_bytes": 11133503,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/entrepreneur/validation.json": {
+      "num_bytes": 4055780,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/espresso/validation.json": {
+      "num_bytes": 326776,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/etymology/validation.json": {
+      "num_bytes": 405319,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/excel/validation.json": {
+      "num_bytes": 816377,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/explainlikeimfive/validation.json": {
+      "num_bytes": 12456220,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/fishing/validation.json": {
+      "num_bytes": 268310,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/frugal/validation.json": {
+      "num_bytes": 2877497,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/gamedev/validation.json": {
+      "num_bytes": 2452650,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/hiking/validation.json": {
+      "num_bytes": 310027,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/homeautomation/validation.json": {
+      "num_bytes": 1290000,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/homebrewing/validation.json": {
+      "num_bytes": 1811463,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/ifyoulikeblank/validation.json": {
+      "num_bytes": 11317681,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/iwanttolearn/validation.json": {
+      "num_bytes": 6637032,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/keto/validation.json": {
+      "num_bytes": 2408394,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/legaladvice/validation.json": {
+      "num_bytes": 11446905,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/linuxquestions/validation.json": {
+      "num_bytes": 6384521,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/mechanicadvice/validation.json": {
+      "num_bytes": 777185,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/moviesuggestions/validation.json": {
+      "num_bytes": 16036817,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/musictheory/validation.json": {
+      "num_bytes": 3827242,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/outoftheloop/validation.json": {
+      "num_bytes": 2640282,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/puppy101/validation.json": {
+      "num_bytes": 2764599,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/running/validation.json": {
+      "num_bytes": 9280803,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/screenwriting/validation.json": {
+      "num_bytes": 1810800,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/sewing/validation.json": {
+      "num_bytes": 2011633,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/smallbusiness/validation.json": {
+      "num_bytes": 3731875,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/solotravel/validation.json": {
+      "num_bytes": 5052984,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/stocks/validation.json": {
+      "num_bytes": 6748164,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/suggestmeabook/validation.json": {
+      "num_bytes": 26418586,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/sysadmin/validation.json": {
+      "num_bytes": 2812866,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/tea/validation.json": {
+      "num_bytes": 1108639,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/techsupport/validation.json": {
+      "num_bytes": 1168975,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/televisionsuggestions/validation.json": {
+      "num_bytes": 2166101,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/travel/validation.json": {
+      "num_bytes": 4539112,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/ultralight/validation.json": {
+      "num_bytes": 7023177,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/vegetarian/validation.json": {
+      "num_bytes": 1178493,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/webdev/validation.json": {
+      "num_bytes": 918611,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/writing/validation.json": {
+      "num_bytes": 4522547,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/zerowaste/validation.json": {
+      "num_bytes": 1559494,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_academia/validation.json": {
+      "num_bytes": 1244648,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_android/validation.json": {
+      "num_bytes": 110984,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_apple/validation.json": {
+      "num_bytes": 730248,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_arduino/validation.json": {
+      "num_bytes": 74420,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_askubuntu/validation.json": {
+      "num_bytes": 1742986,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_aviation/validation.json": {
+      "num_bytes": 364702,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_bicycles/validation.json": {
+      "num_bytes": 722466,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_biology/validation.json": {
+      "num_bytes": 81161,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_bitcoin/validation.json": {
+      "num_bytes": 77893,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_blender/validation.json": {
+      "num_bytes": 210867,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_chemistry/validation.json": {
+      "num_bytes": 108525,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_codegolf/validation.json": {
+      "num_bytes": 9153258,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_codereview/validation.json": {
+      "num_bytes": 1230041,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_cooking/validation.json": {
+      "num_bytes": 541735,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_crypto/validation.json": {
+      "num_bytes": 80091,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_cs/validation.json": {
+      "num_bytes": 186492,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_datascience/validation.json": {
+      "num_bytes": 116008,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_dba/validation.json": {
+      "num_bytes": 352693,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_diy/validation.json": {
+      "num_bytes": 253017,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_drupal/validation.json": {
+      "num_bytes": 101965,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_dsp/validation.json": {
+      "num_bytes": 50551,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_electronics/validation.json": {
+      "num_bytes": 1363956,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ell/validation.json": {
+      "num_bytes": 224674,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_english/validation.json": {
+      "num_bytes": 1301082,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ethereum/validation.json": {
+      "num_bytes": 123714,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_gamedev/validation.json": {
+      "num_bytes": 285697,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_gis/validation.json": {
+      "num_bytes": 209780,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_graphicdesign/validation.json": {
+      "num_bytes": 224587,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_magento/validation.json": {
+      "num_bytes": 178793,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_math/validation.json": {
+      "num_bytes": 13874912,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mathematica/validation.json": {
+      "num_bytes": 888429,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mathoverflow/validation.json": {
+      "num_bytes": 4262224,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mechanics/validation.json": {
+      "num_bytes": 236851,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_money/validation.json": {
+      "num_bytes": 636804,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_movies/validation.json": {
+      "num_bytes": 196221,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_music/validation.json": {
+      "num_bytes": 572382,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_networkengineering/validation.json": {
+      "num_bytes": 52281,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_philosophy/validation.json": {
+      "num_bytes": 210786,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_photo/validation.json": {
+      "num_bytes": 711010,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_physics/validation.json": {
+      "num_bytes": 1321921,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_puzzling/validation.json": {
+      "num_bytes": 608864,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_raspberrypi/validation.json": {
+      "num_bytes": 131064,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_salesforce/validation.json": {
+      "num_bytes": 304635,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_scifi/validation.json": {
+      "num_bytes": 1157477,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_security/validation.json": {
+      "num_bytes": 850641,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_serverfault/validation.json": {
+      "num_bytes": 2159477,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_sharepoint/validation.json": {
+      "num_bytes": 134994,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_softwarerecs/validation.json": {
+      "num_bytes": 23521,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_stackoverflow/validation.json": {
+      "num_bytes": 92148669,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_stats/validation.json": {
+      "num_bytes": 899357,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_superuser/validation.json": {
+      "num_bytes": 2189159,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_tex/validation.json": {
+      "num_bytes": 1923910,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_travel/validation.json": {
+      "num_bytes": 519070,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_unix/validation.json": {
+      "num_bytes": 1353921,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ux/validation.json": {
+      "num_bytes": 603126,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_webapps/validation.json": {
+      "num_bytes": 114096,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_webmasters/validation.json": {
+      "num_bytes": 121052,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_wordpress/validation.json": {
+      "num_bytes": 272448,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_workplace/validation.json": {
+      "num_bytes": 1342221,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/architecture/test.json": {
+      "num_bytes": 389272,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/artfundamentals/test.json": {
+      "num_bytes": 752468,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askacademia/test.json": {
+      "num_bytes": 4952289,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askanthropology/test.json": {
+      "num_bytes": 600920,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askbaking/test.json": {
+      "num_bytes": 3585283,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askcarguys/test.json": {
+      "num_bytes": 681114,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askculinary/test.json": {
+      "num_bytes": 10682277,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askdocs/test.json": {
+      "num_bytes": 2677267,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askeconomics/test.json": {
+      "num_bytes": 1017728,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askengineers/test.json": {
+      "num_bytes": 10291335,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askhistorians/test.json": {
+      "num_bytes": 9558712,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askhr/test.json": {
+      "num_bytes": 2346266,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asklinguistics/test.json": {
+      "num_bytes": 583467,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asknetsec/test.json": {
+      "num_bytes": 1687883,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askphilosophy/test.json": {
+      "num_bytes": 4665386,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askphysics/test.json": {
+      "num_bytes": 1557208,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askscience/test.json": {
+      "num_bytes": 7912082,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asksciencefiction/test.json": {
+      "num_bytes": 14026718,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/asksocialscience/test.json": {
+      "num_bytes": 858378,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/askvet/test.json": {
+      "num_bytes": 1621473,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/aviation/test.json": {
+      "num_bytes": 250454,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/booksuggestions/test.json": {
+      "num_bytes": 16127379,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/botany/test.json": {
+      "num_bytes": 117559,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/camping/test.json": {
+      "num_bytes": 405325,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/campingandhiking/test.json": {
+      "num_bytes": 392963,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/catadvice/test.json": {
+      "num_bytes": 3520887,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/changemyview/test.json": {
+      "num_bytes": 35999054,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/cooking/test.json": {
+      "num_bytes": 1656548,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/cookingforbeginners/test.json": {
+      "num_bytes": 3436595,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/crochet/test.json": {
+      "num_bytes": 797186,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/diy/test.json": {
+      "num_bytes": 2088574,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/eatcheapandhealthy/test.json": {
+      "num_bytes": 8686448,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/entrepreneur/test.json": {
+      "num_bytes": 2749123,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/espresso/test.json": {
+      "num_bytes": 697164,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/etymology/test.json": {
+      "num_bytes": 376626,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/excel/test.json": {
+      "num_bytes": 729035,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/explainlikeimfive/test.json": {
+      "num_bytes": 13746960,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/fishing/test.json": {
+      "num_bytes": 183205,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/frugal/test.json": {
+      "num_bytes": 2569243,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/gamedev/test.json": {
+      "num_bytes": 3000939,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/hiking/test.json": {
+      "num_bytes": 274827,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/homeautomation/test.json": {
+      "num_bytes": 1373537,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/homebrewing/test.json": {
+      "num_bytes": 1704122,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/ifyoulikeblank/test.json": {
+      "num_bytes": 13706164,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/iwanttolearn/test.json": {
+      "num_bytes": 8480836,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/keto/test.json": {
+      "num_bytes": 2505277,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/legaladvice/test.json": {
+      "num_bytes": 12387644,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/linuxquestions/test.json": {
+      "num_bytes": 4429747,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/mechanicadvice/test.json": {
+      "num_bytes": 1076923,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/moviesuggestions/test.json": {
+      "num_bytes": 16038366,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/musictheory/test.json": {
+      "num_bytes": 4116637,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/outoftheloop/test.json": {
+      "num_bytes": 2604093,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/puppy101/test.json": {
+      "num_bytes": 3480962,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/running/test.json": {
+      "num_bytes": 8514812,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/screenwriting/test.json": {
+      "num_bytes": 1912024,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/sewing/test.json": {
+      "num_bytes": 1134957,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/smallbusiness/test.json": {
+      "num_bytes": 4303033,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/solotravel/test.json": {
+      "num_bytes": 4921588,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/stocks/test.json": {
+      "num_bytes": 8170071,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/suggestmeabook/test.json": {
+      "num_bytes": 23537688,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/sysadmin/test.json": {
+      "num_bytes": 2552105,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/tea/test.json": {
+      "num_bytes": 715915,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/techsupport/test.json": {
+      "num_bytes": 1578063,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/televisionsuggestions/test.json": {
+      "num_bytes": 2085956,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/travel/test.json": {
+      "num_bytes": 3857284,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/ultralight/test.json": {
+      "num_bytes": 8509307,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/vegetarian/test.json": {
+      "num_bytes": 659423,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/webdev/test.json": {
+      "num_bytes": 1154331,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/writing/test.json": {
+      "num_bytes": 4987222,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/reddit/zerowaste/test.json": {
+      "num_bytes": 1640941,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_academia/test.json": {
+      "num_bytes": 1078290,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_android/test.json": {
+      "num_bytes": 198671,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_apple/test.json": {
+      "num_bytes": 838044,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_arduino/test.json": {
+      "num_bytes": 59731,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_askubuntu/test.json": {
+      "num_bytes": 1727842,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_aviation/test.json": {
+      "num_bytes": 288437,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_bicycles/test.json": {
+      "num_bytes": 438004,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_biology/test.json": {
+      "num_bytes": 75510,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_bitcoin/test.json": {
+      "num_bytes": 46825,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_blender/test.json": {
+      "num_bytes": 220728,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_chemistry/test.json": {
+      "num_bytes": 144016,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_codegolf/test.json": {
+      "num_bytes": 10793958,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_codereview/test.json": {
+      "num_bytes": 981410,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_cooking/test.json": {
+      "num_bytes": 374808,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_crypto/test.json": {
+      "num_bytes": 148961,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_cs/test.json": {
+      "num_bytes": 131794,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_datascience/test.json": {
+      "num_bytes": 87035,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_dba/test.json": {
+      "num_bytes": 327575,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_diy/test.json": {
+      "num_bytes": 391144,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_drupal/test.json": {
+      "num_bytes": 151320,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_dsp/test.json": {
+      "num_bytes": 55518,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_electronics/test.json": {
+      "num_bytes": 1288351,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ell/test.json": {
+      "num_bytes": 261609,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_english/test.json": {
+      "num_bytes": 1182211,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ethereum/test.json": {
+      "num_bytes": 124508,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_gamedev/test.json": {
+      "num_bytes": 270561,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_gis/test.json": {
+      "num_bytes": 174786,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_graphicdesign/test.json": {
+      "num_bytes": 375112,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_magento/test.json": {
+      "num_bytes": 274676,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_math/test.json": {
+      "num_bytes": 10960460,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mathematica/test.json": {
+      "num_bytes": 769221,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mathoverflow/test.json": {
+      "num_bytes": 4623334,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_mechanics/test.json": {
+      "num_bytes": 169523,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_money/test.json": {
+      "num_bytes": 414134,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_movies/test.json": {
+      "num_bytes": 156410,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_music/test.json": {
+      "num_bytes": 464361,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_networkengineering/test.json": {
+      "num_bytes": 70072,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_philosophy/test.json": {
+      "num_bytes": 215782,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_photo/test.json": {
+      "num_bytes": 764039,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_physics/test.json": {
+      "num_bytes": 946744,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_puzzling/test.json": {
+      "num_bytes": 560266,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_raspberrypi/test.json": {
+      "num_bytes": 170804,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_salesforce/test.json": {
+      "num_bytes": 218045,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_scifi/test.json": {
+      "num_bytes": 989847,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_security/test.json": {
+      "num_bytes": 923029,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_serverfault/test.json": {
+      "num_bytes": 1698558,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_sharepoint/test.json": {
+      "num_bytes": 126798,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_softwarerecs/test.json": {
+      "num_bytes": 6528,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_stackoverflow/test.json": {
+      "num_bytes": 97308578,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_stats/test.json": {
+      "num_bytes": 911919,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_superuser/test.json": {
+      "num_bytes": 2010427,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_tex/test.json": {
+      "num_bytes": 1898269,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_travel/test.json": {
+      "num_bytes": 440337,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_unix/test.json": {
+      "num_bytes": 1233970,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_ux/test.json": {
+      "num_bytes": 512318,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_webapps/test.json": {
+      "num_bytes": 65698,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_webmasters/test.json": {
+      "num_bytes": 119432,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_wordpress/test.json": {
+      "num_bytes": 315062,
+      "checksum": null
+    },
+    "hf://datasets/stanfordnlp/SHP-2@628803d8055d947439f381e9877e9b4b69fb0d35/stackexchange/stack_workplace/test.json": {
+      "num_bytes": 1426958,
+      "checksum": null
+    }
+  },
+  "download_size": 9749744341,
+  "features": {
+    "post_id": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "domain": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "upvote_ratio": {
+      "dtype": "float64",
+      "_type": "Value"
+    },
+    "history": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "c_root_id_A": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "c_root_id_B": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "created_at_utc_A": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "created_at_utc_B": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "score_A": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "score_B": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "human_ref_A": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "human_ref_B": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "labels": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "seconds_difference": {
+      "dtype": "float64",
+      "_type": "Value"
+    },
+    "score_ratio": {
+      "dtype": "float64",
+      "_type": "Value"
+    },
+    "metadata_A": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "metadata_B": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 18297490512,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 7705294372,
+      "num_examples": 4324557,
+      "shard_lengths": [
+        324343,
+        219045,
+        441523,
+        151122,
+        327985,
+        444155,
+        363000,
+        416431,
+        453578,
+        378634,
+        126607,
+        141573,
+        157237,
+        170801,
+        167217,
+        41306
+      ],
+      "dataset_name": "shp-2"
+    },
+    "validation": {
+      "name": "validation",
+      "num_bytes": 419123553,
+      "num_examples": 238852,
+      "dataset_name": "shp-2"
+    },
+    "test": {
+      "name": "test",
+      "num_bytes": 423328246,
+      "num_examples": 241274,
+      "dataset_name": "shp-2"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
