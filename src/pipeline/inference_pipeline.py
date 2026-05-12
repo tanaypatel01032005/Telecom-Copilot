@@ -358,11 +358,13 @@ class TelecomCopilot:
             from src.generation.train_generator import build_input_prompt
             prompt    = build_input_prompt(query, gen_context, history)
             raw_output = self._api_generate(prompt)
-            # Parse citations from API output
+            # Flexible parsing: catch [SOURCE: doc_id] or [SOURCE: doc_id, section]
             citations = []
-            for m in re.finditer(r"\[SOURCE:\s*([^,\]]+),\s*([^\]]+)\]", raw_output):
-                citations.append({"doc_id": m.group(1).strip(),
-                                   "section_id": m.group(2).strip()})
+            for m in re.finditer(r"\[SOURCE:\s*([^\]]+)\]", raw_output):
+                parts = m.group(1).split(",")
+                doc_id = parts[0].strip()
+                sec_id = parts[1].strip() if len(parts) > 1 else "all"
+                citations.append({"doc_id": doc_id, "section_id": sec_id})
             answer = re.sub(r"\[SOURCE:[^\]]+\]", "", raw_output).strip()
 
         # ── Step 6: Augment answer with ticket / outage info ───────

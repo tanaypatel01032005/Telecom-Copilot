@@ -96,13 +96,15 @@ def build_input_prompt(
         hist_str = f"\n<history>\n{chr(10).join(turns)}\n</history>"
 
     prompt = (
-        "You are the Telecom AI Copilot. Use the following context to help with telecom operations. "
-        "If the information is not in the context, or if the context is about unrelated topics like DMV or loans, "
-        "say: 'I'm sorry, I don't have technical documentation for that.'\n\n"
+        "You are the Telecom AI Copilot, a technical expert. Use the provided context to answer the user's question.\n"
+        "GUIDELINES:\n"
+        "1. **Structure**: Use bullet points for steps and bold text for key terms. Organize your response into clear sections.\n"
+        "2. **Expert Advice**: You may add relevant technical advice (e.g., troubleshooting tips) based on your internal knowledge as an AI, but ensure all core facts from the documents are cited.\n"
+        "3. **Citations**: Always cite sources using the format: [SOURCE: doc_id, section_id]\n\n"
         f"<context>\n{context_str}\n</context>"
         f"{hist_str}"
         f"\n<question>\n{query}\n</question>\n\n"
-        "Answer concisely and cite [SOURCE: doc_id, section_id]:"
+        "Response (Structured & Authoritative):"
     )
     return prompt
 
@@ -559,14 +561,14 @@ class Generator:
         except Exception as e:
             raw_output = f"[GENERATION ERROR: {e}]"
 
-        # Parse [SOURCE: doc_id, section_id] tags from output
+        # Flexible parsing: catch [SOURCE: doc_id] or [SOURCE: doc_id, section]
         citations = []
-        for m in re.finditer(r"\[SOURCE:\s*([^,\]]+),\s*([^\]]+)\]", raw_output):
-            citations.append({
-                "doc_id":     m.group(1).strip(),
-                "section_id": m.group(2).strip(),
-            })
-
+        for m in re.finditer(r"\[SOURCE:\s*([^\]]+)\]", raw_output):
+            parts = m.group(1).split(",")
+            doc_id = parts[0].strip()
+            sec_id = parts[1].strip() if len(parts) > 1 else "all"
+            citations.append({"doc_id": doc_id, "section_id": sec_id})
+        
         # Clean answer: remove [SOURCE:] tags for display, keep separately
         answer = re.sub(r"\[SOURCE:[^\]]+\]", "", raw_output).strip()
 
