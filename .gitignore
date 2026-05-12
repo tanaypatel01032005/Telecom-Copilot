@@ -6,7 +6,7 @@ __pycache__/
 .env
 
 # Large Data & Models (Exclude from Git)
-data/index/
+data/index/*
 !data/index/finetuned_faiss.index
 checkpoints/
 data/raw/
