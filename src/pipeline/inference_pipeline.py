@@ -34,7 +34,7 @@ import re
 import argparse
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parents[2]
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Callable
 
 # ─── Tool policy (rule-based, upgraded to classifier in Week 4) ──────────────
 
@@ -61,29 +61,54 @@ def tool_policy(
 
     calls = []
 
+    # ── Capability Check ──────────────────────────────────────────
+    capabilities_kw = ["what can you do", "help", "features", "who are you", "commands", "how to use"]
+    if any(kw in q for kw in capabilities_kw):
+        return [("ShowCapabilities", {})]
+
     # ── Always: SearchKB ──────────────────────────────────────────
     # Infer category from keywords for better retrieval precision
-    category = "any"
-    if any(w in q for w in ["bill","charge","invoice","payment","dispute","refund","autopay"]):
-        category = "billing"
-    elif any(w in q for w in ["signal","4g","5g","network","outage","slow","speed","data"]):
-        category = "network"
-    elif any(w in q for w in ["roam","international","abroad","travel","country"]):
-        category = "roaming"
-    elif any(w in q for w in ["plan","recharge","prepaid","postpaid","upgrade","downgrade"]):
-        category = "plans"
-    elif any(w in q for w in ["sim","esim","device","phone","handset","return","imei"]):
-        category = "device"
-    elif any(w in q for w in ["account","kyc","port","aadhaar","password","otp","hack"]):
-        category = "account"
-    elif any(w in q for w in ["escalat","trai","nodal","complaint","unresolved","supervisor"]):
-        category = "escalation"
+    matched_categories = []
+    telecom_keywords = [
+        "bill","charge","invoice","payment","dispute","refund","autopay","overcharge","deduct","tax",
+        "signal","4g","5g","network","outage","slow","speed","data","coverage","tower","no service","internet",
+        "roam","international","abroad","travel","country","global","overseas","outside india",
+        "plan","recharge","prepaid","postpaid","upgrade","downgrade","pack","validity","benefit",
+        "sim","esim","device","phone","handset","return","imei","compatible","lost",
+        "account","kyc","port","aadhaar","password","otp","hack","login","profile",
+        "escalat","trai","nodal","complaint","unresolved","supervisor","senior","manager","official"
+    ]
+    
+    is_telecom_query = any(w in q for w in telecom_keywords)
+    
+    if any(w in q for w in ["bill","charge","invoice","payment","dispute","refund","autopay","overcharge","deduct","tax"]):
+        matched_categories.append("billing")
+    if any(w in q for w in ["signal","4g","5g","network","outage","slow","speed","data","coverage","tower","no service","internet"]):
+        matched_categories.append("network")
+    if any(w in q for w in ["roam","international","abroad","travel","country","global","overseas","outside india"]):
+        matched_categories.append("roaming")
+    if any(w in q for w in ["plan","recharge","prepaid","postpaid","upgrade","downgrade","pack","validity","benefit"]):
+        matched_categories.append("plans")
+    if any(w in q for w in ["sim","esim","device","phone","handset","return","imei","compatible","lost"]):
+        matched_categories.append("device")
+    if any(w in q for w in ["account","kyc","port","aadhaar","password","otp","hack","login","profile"]):
+        matched_categories.append("account")
+    if any(w in q for w in ["escalat","trai","nodal","complaint","unresolved","supervisor","senior","manager","official"]):
+        matched_categories.append("escalation")
 
-    calls.append(("SearchKB", {"query": query, "category_filter": category, "top_k": 5}))
+    # If it's a telecom query but no specific category matched, search 'any' but prioritize telecom source
+    category = matched_categories[0] if len(matched_categories) == 1 else "any"
+    
+    # Force 'telecom_only' if it's a clear telecom query
+    search_params = {"query": query, "category_filter": category, "top_k": 5}
+    if is_telecom_query:
+        search_params["force_telecom"] = True
+
+    calls.append(("SearchKB", search_params))
 
     # ── Network queries: also check live outage status ─────────────
     network_kw = ["signal","4g","5g","network","outage","down","not working",
-                  "slow internet","no service","coverage"]
+                  "slow","no service","coverage","internet","speed","tower"]
     if any(kw in q for kw in network_kw):
         # Try to extract region from query
         region = _extract_region(query)
@@ -92,7 +117,7 @@ def tool_policy(
 
     # ── Policy queries: add GetPolicy for specific section lookup ──
     policy_kw = ["policy","rule","regulation","what happens","how long","deadline",
-                 "eligible","entitle","trai","compensation","days"]
+                 "eligible","entitle","trai","compensation","days","fine","legal"]
     if any(kw in q for kw in policy_kw):
         # GetPolicy will be called AFTER SearchKB returns a section_id
         calls.append(("GetPolicy", {"_deferred": True}))
@@ -101,24 +126,22 @@ def tool_policy(
 
 
 def _extract_region(query: str) -> str:
-    """
-    Attempts to extract a city/region from the query.
-    Falls back to 'Unknown' if nothing found.
-    """
+    """Attempts to extract a city/region from the query."""
     cities = [
         "mumbai","delhi","bangalore","bengaluru","hyderabad","chennai",
         "kolkata","pune","ahmedabad","surat","jaipur","lucknow","noida",
-        "gurgaon","gurugram","chandigarh","indore","bhopal","patna",
+        "gurgaon","gurugram","chandigarh","indore","bhopal","patna"
     ]
     q_lower = query.lower()
     for city in cities:
         if city in q_lower:
             return city.capitalize()
     # Look for pincode pattern
+    import re
     match = re.search(r"\b[1-9][0-9]{5}\b", query)
     if match:
         return match.group(0)
-    return "Unknown"
+    return "Global"
 
 
 # ─── Full Pipeline ────────────────────────────────────────────────────────────
@@ -192,20 +215,10 @@ class TelecomCopilot:
         self,
         query:   str,
         history: Optional[List[Dict]] = None,
+        status_callback: Optional[Callable] = None,
     ) -> Dict:
         """
         Full pipeline inference.
-
-        Args:
-            query:   Customer's query string
-            history: List of previous turns [{"role": "user"/"agent", "utterance": str}]
-
-        Returns:
-            {
-              system, query, answer, citations,
-              tool_trace, escalated, ticket_id,
-              confidence, retrieved, latency_ms
-            }
         """
         from src.tools.tool_executor import should_escalate
         from src.generation.train_generator import build_input_prompt
@@ -213,8 +226,16 @@ class TelecomCopilot:
         t0      = time.time()
         history = history or []
 
+        def log_status(msg):
+            if status_callback:
+                status_callback(msg)
+            print(f"  [Pipeline] {msg}")
+
         tool_trace    = []
         all_retrieved = []
+        outage_info   = None
+        
+        log_status("Analyzing query and routing to tools...")
         outage_info   = None
         ticket_id     = None
         escalated     = False
@@ -224,7 +245,25 @@ class TelecomCopilot:
 
         # ── Step 2: Execute tool loop ──────────────────────────────
         for tool_name, params in planned_calls:
+            if tool_name == "ShowCapabilities":
+                return {
+                    "system": "full_pipeline",
+                    "query": query,
+                    "answer": (
+                        "I am your Telecom AI Copilot. I can assist you with:\n"
+                        "1. **Network Outages**: Check live status in cities like Mumbai or Delhi.\n"
+                        "2. **Billing SOPs**: Explain roaming charges, payment disputes, and refunds.\n"
+                        "3. **SOP Lookups**: Procedures for eSIM, SIM porting, and plan upgrades.\n"
+                        "4. **Ticketing**: Automatically escalate unresolved issues to L2 support.\n"
+                        "How can I help you today?"
+                    ),
+                    "citations": [{"doc_id": "system_manual", "section_id": "capabilities"}],
+                    "tool_trace": [{"tool": "ShowCapabilities", "params": {}, "output_summary": "Displaying features"}],
+                    "escalated": False, "ticket_id": None, "confidence": 1.0, "retrieved": [],
+                    "latency_ms": round((time.time() - t0) * 1000, 1)
+                }
 
+            log_status(f"Executing tool: {tool_name}...")
             # Deferred GetPolicy: fill section_id from SearchKB results
             if params.get("_deferred") and tool_name == "GetPolicy":
                 if all_retrieved:
@@ -263,6 +302,7 @@ class TelecomCopilot:
                 seen.add(key)
                 unique.append(p)
         all_retrieved = unique[:5]
+        log_status(f"Retrieved {len(all_retrieved)} technical passages.")
 
         # ── Step 3: Escalation check ───────────────────────────────
         top_score   = all_retrieved[0].get("dense_score",
@@ -307,6 +347,7 @@ class TelecomCopilot:
             gen_context.insert(0, outage_passage)
 
         # ── Step 5: Generate answer ────────────────────────────────
+        log_status("Synthesizing final response with Llama-3-8B...")
         if self.generator:
             gen_result = self.generator.generate(query, gen_context, history)
             answer     = gen_result["answer"]
@@ -377,13 +418,16 @@ class TelecomCopilot:
             "latency_ms": latency_ms,
         }
 
-    def batch_run(self, test_cases: List[Dict]) -> List[Dict]:
-        """Runs the full pipeline on all test cases for evaluation."""
-        results = []
-        for i, case in enumerate(test_cases):
-            print(f"  [{i+1:03d}/{len(test_cases)}] {case['query'][:60]}...")
-            result = self.run(case["query"], case.get("history", []))
-            result.update({
+    def batch_run(self, test_cases: List[Dict], max_workers: int = 10) -> List[Dict]:
+        """Runs the full pipeline on all test cases using parallel threads for speed."""
+        from concurrent.futures import ThreadPoolExecutor
+        results = [None] * len(test_cases)
+
+        def _process(idx):
+            case = test_cases[idx]
+            print(f"  [Full Sys] [{idx+1:03d}/{len(test_cases)}] {case['query'][:50]}...")
+            res = self.run(case["query"], case.get("history", []))
+            res.update({
                 "test_id":          case.get("test_id"),
                 "gold_doc_id":      case.get("gold_doc_id"),
                 "gold_section_id":  case.get("gold_section_id"),
@@ -393,7 +437,12 @@ class TelecomCopilot:
                 "domain":           case.get("domain", "unknown"),
                 "source":           case.get("source", "unknown"),
             })
-            results.append(result)
+            results[idx] = res
+
+        print(f"\n  [Full Sys] Starting parallel batch run with {max_workers} workers...")
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            list(executor.map(_process, range(len(test_cases))))
+            
         return results
 
 
@@ -492,7 +541,7 @@ if __name__ == "__main__":
             with open(out, "w") as f:
                 for r in results:
                     f.write(json.dumps(r, default=str) + "\n")
-            print(f"Saved {len(results)} results → {out}")
+            print(f"Saved {len(results)} results -> {out}")
 
             # Auto-compute metrics
             sys.path.insert(0, ".")
@@ -503,4 +552,4 @@ if __name__ == "__main__":
             mpath = Path("data/processed/full_system_results.eval.json")
             with open(mpath, "w") as f:
                 json.dump(metrics, f, indent=2, default=str)
-            print(f"Metrics saved → {mpath}")
+            print(f"Metrics saved -> {mpath}")

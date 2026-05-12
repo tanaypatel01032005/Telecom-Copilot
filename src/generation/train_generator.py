@@ -52,6 +52,8 @@ os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 import json
 import argparse
 import random
+import multiprocessing
+multiprocessing.freeze_support()
 from pathlib import Path
 from typing import List, Dict, Tuple
 
@@ -94,10 +96,13 @@ def build_input_prompt(
         hist_str = f"\n<history>\n{chr(10).join(turns)}\n</history>"
 
     prompt = (
+        "You are the Telecom AI Copilot. Use the following context to help with telecom operations. "
+        "If the information is not in the context, or if the context is about unrelated topics like DMV or loans, "
+        "say: 'I'm sorry, I don't have technical documentation for that.'\n\n"
         f"<context>\n{context_str}\n</context>"
         f"{hist_str}"
-        f"\n<question>\n{query}\n</question>"
-        f"\nAnswer concisely and cite [SOURCE: doc_id, section_id]:"
+        f"\n<question>\n{query}\n</question>\n\n"
+        "Answer concisely and cite [SOURCE: doc_id, section_id]:"
     )
     return prompt
 
@@ -146,7 +151,7 @@ def load_sft_dataset(
 
     random.shuffle(pairs)
     split = int(len(pairs) * (1 - val_ratio))
-    print(f"  Loaded {len(pairs)} SFT pairs → {split} train / {len(pairs)-split} val")
+    print(f"  Loaded {len(pairs)} SFT pairs -> {split} train / {len(pairs)-split} val")
     return pairs[:split], pairs[split:]
 
 
@@ -172,24 +177,25 @@ def pairs_to_hf_dataset(pairs: List[Dict], tokenizer, max_input: int, max_target
     print(f"  Prepared {len(inputs)} examples ({skipped} skipped)")
 
     def tokenize(batch):
+        texts = [i + " " + t for i, t in zip(batch["input"], batch["target"])]
         model_inputs = tokenizer(
-            batch["input"],
-            max_length=max_input,
-            truncation=True,
-            padding="max_length",
-        ) 
-        labels = tokenizer(
-            batch["target"],
-            max_length=max_target,
+            texts,
+            max_length=max_input + max_target,
             truncation=True,
             padding="max_length",
         )
-        # Replace padding token id with -100 so loss ignores padding
-        labels["input_ids"] = [
-            [(t if t != tokenizer.pad_token_id else -100) for t in label]
-            for label in labels["input_ids"]
-        ]
-        model_inputs["labels"] = labels["input_ids"]
+        
+        labels_list = []
+        for i, text in enumerate(batch["input"]):
+            input_ids = model_inputs["input_ids"][i]
+            # tokenise prompt to find its length
+            prompt_len = len(tokenizer(text, truncation=True, max_length=max_input)["input_ids"])
+            # mask prompt and padding
+            label = [-100] * prompt_len + input_ids[prompt_len:]
+            label = [t if t != tokenizer.pad_token_id else -100 for t in label]
+            labels_list.append(label)
+            
+        model_inputs["labels"] = labels_list
         return model_inputs
 
     raw_ds = Dataset.from_dict({"input": inputs, "target": targets})
@@ -219,12 +225,12 @@ def get_dora_config(rank: int = 16, alpha: int = 32):
     from peft import LoraConfig, TaskType
 
     return LoraConfig(
-        task_type      = TaskType.SEQ_2_SEQ_LM,
+        task_type      = TaskType.CAUSAL_LM,
         r              = rank,
         lora_alpha     = alpha,
         lora_dropout   = 0.05,
-        use_dora       = True,        # ← DoRA: decomposes into magnitude + direction
-        target_modules = ["q", "v"],  # T5 attention projections
+        use_dora       = True,
+        target_modules = ["q_proj", "v_proj"],
         bias           = "none",
     )
 
@@ -252,10 +258,12 @@ def train_generator(
     This is the key PEFT efficiency claim for your report.
     """
     from transformers import (
-        T5ForConditionalGeneration, T5Tokenizer,
-        Seq2SeqTrainer, Seq2SeqTrainingArguments,
-        DataCollatorForSeq2Seq,
+        AutoModelForCausalLM, AutoTokenizer,
+        Trainer, TrainingArguments,
+        DataCollatorForLanguageModeling,
+        BitsAndBytesConfig,
     )
+    import torch
     from peft import get_peft_model
 
     if quick:
@@ -277,8 +285,23 @@ def train_generator(
 
     # ── Load tokenizer + base model ───────────────────────────────
     print(f"  Loading base model: {base_model_name}")
-    tokenizer = T5Tokenizer.from_pretrained(base_model_name)
-    model     = T5ForConditionalGeneration.from_pretrained(base_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(base_model_name)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "right"
+    
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_use_double_quant=True,
+    )
+    
+    model = AutoModelForCausalLM.from_pretrained(
+        base_model_name,
+        quantization_config=bnb_config,
+        device_map="auto"
+    )
 
     # ── Apply DoRA ────────────────────────────────────────────────
     dora_config   = get_dora_config(rank=dora_rank, alpha=dora_alpha)
@@ -291,14 +314,14 @@ def train_generator(
     train_ds = pairs_to_hf_dataset(train_pairs, tokenizer, MAX_INPUT_LEN, MAX_TARGET_LEN)
     val_ds   = pairs_to_hf_dataset(val_pairs,   tokenizer, MAX_INPUT_LEN, MAX_TARGET_LEN)
 
-    data_collator = DataCollatorForSeq2Seq(
-        tokenizer, model=model, label_pad_token_id=-100, pad_to_multiple_of=8
+    data_collator = DataCollatorForLanguageModeling(
+        tokenizer, mlm=False
     )
 
     # ── Training args ─────────────────────────────────────────────
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    training_args = Seq2SeqTrainingArguments(
+    training_args = TrainingArguments(
         output_dir                  = output_dir,
         num_train_epochs            = num_epochs,
         per_device_train_batch_size = batch_size,
@@ -308,26 +331,26 @@ def train_generator(
         warmup_ratio                = 0.06,
         lr_scheduler_type           = "cosine",
         weight_decay                = 0.01,
-        predict_with_generate       = True,   # enables ROUGE eval
-        generation_max_length       = MAX_TARGET_LEN,
         eval_strategy               = "epoch",
         save_strategy               = "epoch",
         load_best_model_at_end      = True,
         metric_for_best_model       = "eval_loss",
         greater_is_better           = False,
-        fp16                        = False,   # mixed precision — T4 GPU
+        fp16                        = False,
         logging_steps               = 50,
-        report_to                   = "none", # disable wandb for simplicity
-        dataloader_num_workers      = 2,
+        report_to                   = "none",
+        dataloader_num_workers      = 0,
+        dataloader_pin_memory       = False,
+        remove_unused_columns       = False,
+        use_cpu                     = True,
     )
 
     # ── Trainer ───────────────────────────────────────────────────
-    trainer = Seq2SeqTrainer(
+    trainer = Trainer(
         model           = model,
         args            = training_args,
         train_dataset   = train_ds,
         eval_dataset    = val_ds,
-        # tokenizer       = tokenizer,
         processing_class=tokenizer,
         data_collator   = data_collator,
     )
@@ -341,7 +364,7 @@ def train_generator(
     merged = model.merge_and_unload()
     merged.save_pretrained(output_dir)
     tokenizer.save_pretrained(output_dir)
-    print(f"  Merged model saved → {output_dir}")
+    print(f"  Merged model saved -> {output_dir}")
 
     return merged, tokenizer
 
@@ -364,19 +387,38 @@ def evaluate_generator(
 
     Also compares against the un-tuned base model if compare_base=True.
     """
-    from transformers import T5ForConditionalGeneration, T5Tokenizer
+    from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
     import torch, re
 
     print(f"\n  Evaluating generator: {model_path}")
 
     # Load fine-tuned model
-    tokenizer = T5Tokenizer.from_pretrained(model_path)
-    ft_model  = T5ForConditionalGeneration.from_pretrained(model_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
+    
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_use_double_quant=True,
+    )
+    
+    ft_model  = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        quantization_config=bnb_config,
+        device_map="auto"
+    )
     ft_model.eval()
 
     # Load base model for comparison
     if compare_base:
-        base_model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-base")
+        base_model = AutoModelForCausalLM.from_pretrained(
+            "meta-llama/Meta-Llama-3-8B",
+            quantization_config=bnb_config,
+            device_map="auto"
+        )
         base_model.eval()
 
     # Load eval samples (val split)
@@ -386,10 +428,11 @@ def evaluate_generator(
     def generate(model, prompt: str, max_new_tokens: int = MAX_TARGET_LEN) -> str:
         inputs = tokenizer(prompt, return_tensors="pt",
                            max_length=MAX_INPUT_LEN, truncation=True)
+        input_length = inputs["input_ids"].shape[1]
         with torch.no_grad():
             out = model.generate(**inputs, max_new_tokens=max_new_tokens,
                                  num_beams=4, early_stopping=True)
-        return tokenizer.decode(out[0], skip_special_tokens=True).strip()
+        return tokenizer.decode(out[0][input_length:], skip_special_tokens=True).strip()
 
     def citation_rate(outputs: List[str]) -> float:
         return sum(1 for o in outputs if "[SOURCE:" in o) / max(len(outputs), 1)
@@ -461,7 +504,7 @@ def evaluate_generator(
     report_path = Path("data/processed/generator_eval.json")
     with open(report_path, "w") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
-    print(f"\n  Report saved → {report_path}")
+    print(f"\n  Report saved -> {report_path}")
     return report
 
 
@@ -473,12 +516,19 @@ class Generator:
     Loaded once at startup; call .generate() per query.
     """
 
-    def __init__(self, model_path: str = "checkpoints/generator"):
-        from transformers import T5ForConditionalGeneration, T5Tokenizer
-        print(f"  [Generator] Loading DoRA model: {model_path}")
-        self.tokenizer = T5Tokenizer.from_pretrained(model_path)
-        self.model     = T5ForConditionalGeneration.from_pretrained(model_path)
-        self.model.eval()
+    def __init__(self, model_path: str = "meta-llama/Meta-Llama-3-8B-Instruct"):
+        from huggingface_hub import InferenceClient
+        import os
+        
+        # Rely on HF_TOKEN from environment variables for security
+        self.hf_token = os.environ.get("HF_TOKEN")
+        
+        # Override local paths with the Hugging Face model ID
+        if "checkpoints" in model_path or "generator" in model_path:
+            model_path = "meta-llama/Meta-Llama-3-8B-Instruct"
+            
+        print(f"  [Generator] Loading API Client for: {model_path}")
+        self.client = InferenceClient(model_path, token=os.environ.get("HF_TOKEN"))
 
     def generate(
         self,
@@ -498,22 +548,16 @@ class Generator:
             "raw_output": str,         # unprocessed model output
           }
         """
-        import torch, re
+        import re
 
         prompt  = build_input_prompt(query, context, history)
-        inputs  = self.tokenizer(
-            prompt, return_tensors="pt",
-            max_length=MAX_INPUT_LEN, truncation=True
-        )
-
-        with torch.no_grad():
-            out = self.model.generate(
-                **inputs,
-                max_new_tokens = max_tokens,
-                num_beams      = num_beams,
-                early_stopping = True,
-            )
-        raw_output = self.tokenizer.decode(out[0], skip_special_tokens=True).strip()
+        
+        try:
+            messages = [{"role": "user", "content": prompt}]
+            response = self.client.chat_completion(messages=messages, max_tokens=max_tokens)
+            raw_output = response.choices[0].message.content.strip()
+        except Exception as e:
+            raw_output = f"[GENERATION ERROR: {e}]"
 
         # Parse [SOURCE: doc_id, section_id] tags from output
         citations = []
@@ -542,7 +586,7 @@ if __name__ == "__main__":
                         help="Evaluate saved model vs base (no training)")
     parser.add_argument("--demo",        type=str,
                         help="Run inference demo with a query string")
-    parser.add_argument("--base-model",  default="google/flan-t5-base")
+    parser.add_argument("--base-model",  default="meta-llama/Meta-Llama-3-8B")
     parser.add_argument("--output-dir",  default="checkpoints/generator")
     parser.add_argument("--epochs",      type=int,   default=3)
     parser.add_argument("--batch-size",  type=int,   default=8)

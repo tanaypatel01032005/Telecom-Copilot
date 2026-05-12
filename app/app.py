@@ -21,21 +21,17 @@ st.set_page_config(
 # ==========================================
 # PIPELINE INITIALIZATION (REAL BACKEND)
 # ==========================================
-@st.cache_resource(show_spinner="Initializing Telecom Copilot Pipeline (DoRA, FAISS, Tools)...")
 def load_pipeline():
     try:
         from src.pipeline.inference_pipeline import TelecomCopilot
         return TelecomCopilot()
-    except ImportError as e:
-        st.error(f"Failed to import the backend pipeline. Ensure you are running this from the project root. Error: {e}")
+    except Exception as e:
+        # Fallback for when models are not yet trained
+        print(f"DEBUG: Pipeline load failed: {e}")
         return None
 
 pipeline = load_pipeline()
-if pipeline is not None:
-    try:
-        pipeline.run("hello")
-    except:
-        pass
+# Removed blocking warmup call
 # ==========================================
 # CUSTOM CSS (Refined Cyberpunk / Glassmorphism)
 # ==========================================
@@ -323,13 +319,11 @@ def process_ai_response():
         
         try:
             # status_container.update(label="Running Retriever & Tools...", state="running")
-            status_container.update(
-                label="Retrieving knowledge, executing tools, and generating response...",
-                state="running"
-            )
-            
             # CALLING THE REAL BACKEND PIPELINE
-            result = pipeline.run(user_query)
+            def update_ui_status(msg):
+                status_container.write(f"⏳ {msg}")
+            
+            result = pipeline.run(user_query, status_callback=update_ui_status)
             
             status_container.update(label="Response Generated", state="complete", expanded=False)
 
@@ -370,8 +364,7 @@ def process_ai_response():
                 else f"<span class='citation-pill'>📄 {c}</span>"
                 for c in metadata["citations"]
             ])
-
-            st.markdown(citation_html, unsafe_allow_html=True)
+                st.markdown(citation_html, unsafe_allow_html=True)
                 
             if metadata["escalated"] and metadata["ticket_id"]:
                 st.markdown(f"""
@@ -410,6 +403,8 @@ def process_ai_response():
             })
             
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             status_container.update(label="Pipeline Error", state="error", expanded=True)
             # st.error(f"Error executing pipeline: {str(e)}")
             st.error("AI Copilot encountered an internal processing issue.")

@@ -398,20 +398,20 @@ def build_kb(
     with open(kb_path, "w", encoding="utf-8") as f:
         for p in all_passages:
             f.write(json.dumps(p, ensure_ascii=False) + "\n")
-    print(f"\n  Saved {len(all_passages):,} passages → {kb_path}")
+    print(f"\n  Saved {len(all_passages):,} passages -> {kb_path}")
 
     # doc_index.json — for fast lookup at inference
     doc_idx_path = Path(output_dir) / "doc_index.json"
     with open(doc_idx_path, "w", encoding="utf-8") as f:
         json.dump(doc_index, f, indent=2, ensure_ascii=False)
-    print(f"  Saved {len(doc_index)} doc records → {doc_idx_path}")
+    print(f"  Saved {len(doc_index)} doc records -> {doc_idx_path}")
 
     # span_index.json — section_id → passage record (for GetPolicy tool)
     span_index = {p["section_id"]: p for p in all_passages}
     span_idx_path = Path(output_dir) / "span_index.json"
     with open(span_idx_path, "w", encoding="utf-8") as f:
         json.dump(span_index, f, indent=2, ensure_ascii=False)
-    print(f"  Saved {len(span_index)} span records → {span_idx_path}")
+    print(f"  Saved {len(span_index)} span records -> {span_idx_path}")
 
     # dataset_stats.json — for your report
     stats = {
@@ -426,7 +426,7 @@ def build_kb(
     stats_path = Path(output_dir) / "dataset_stats.json"
     with open(stats_path, "w") as f:
         json.dump(stats, f, indent=2)
-    print(f"  Saved stats → {stats_path}")
+    print(f"  Saved stats -> {stats_path}")
 
     return all_passages, doc_index
 

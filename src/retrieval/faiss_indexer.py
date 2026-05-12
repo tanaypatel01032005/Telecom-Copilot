@@ -49,18 +49,28 @@ def embed_passages(
     Uses 'full_text' (heading + text) for richer context.
     Returns a float32 numpy array of shape (n_passages, embedding_dim).
     """
+    import torch
+    import os
+    # Maximize all CPU cores for matrix operations
+    n_cores = os.cpu_count() or 4
+    torch.set_num_threads(n_cores)
+    torch.set_num_interop_threads(max(1, n_cores // 2))
+    print(f"  Using {n_cores} CPU threads for encoding")
+
     from sentence_transformers import SentenceTransformer
 
     print(f"  Loading encoder: {model_path}")
     model = SentenceTransformer(model_path)
 
     texts = [p.get(field, p.get("text", "")) for p in passages]
-    print(f"  Encoding {len(texts):,} passages (batch_size={batch_size})...")
+    # Use larger batch on CPU to reduce Python overhead between batches
+    cpu_batch_size = max(batch_size, 256)
+    print(f"  Encoding {len(texts):,} passages (batch_size={cpu_batch_size})...")
 
     t0         = time.time()
     embeddings = model.encode(
         texts,
-        batch_size        = batch_size,
+        batch_size        = cpu_batch_size,
         show_progress_bar = True,
         convert_to_numpy  = True,
         normalize_embeddings = True,   # normalise → inner product = cosine similarity
@@ -117,7 +127,7 @@ def save_index(
     # FAISS index
     idx_path = out / f"{label}_faiss.index"
     faiss.write_index(index, str(idx_path))
-    print(f"  Saved FAISS index → {idx_path}")
+    print(f"  Saved FAISS index -> {idx_path}")
 
     # Passage store: row_id → passage record
     # Store only the fields needed at retrieval time to keep file small
@@ -137,7 +147,7 @@ def save_index(
     store_path = out / f"{label}_passage_store.json"
     with open(store_path, "w") as f:
         json.dump(store, f, ensure_ascii=False)
-    print(f"  Saved passage store ({len(store):,} entries) → {store_path}")
+    print(f"  Saved passage store ({len(store):,} entries) -> {store_path}")
 
     # Meta
     meta = {
@@ -153,7 +163,7 @@ def save_index(
     meta_path = out / f"{label}_index_meta.json"
     with open(meta_path, "w") as f:
         json.dump(meta, f, indent=2)
-    print(f"  Saved index meta → {meta_path}")
+    print(f"  Saved index meta -> {meta_path}")
 
 
 def load_index(index_dir: str = "data/index", label: str = "finetuned"):
@@ -277,6 +287,96 @@ class DenseRetriever:
 
 
 # ─── Full pipeline: embed + index ─────────────────────────────────────────────
+# ─── Hybrid Search ────────────────────────────────────────────────────────────
+
+class BM25:
+    """Okapi BM25 implementation for keyword search."""
+    def __init__(self, passages: List[Dict], k1=1.5, b=0.75):
+        import re, math
+        from collections import Counter
+        self.passages  = passages
+        self.k1, self.b = k1, b
+        self.N         = len(passages)
+        self.tokenised = [re.findall(r"[a-z0-9]+", p.get("text", "").lower()) for p in passages]
+        self.avg_dl    = sum(len(t) for t in self.tokenised) / max(self.N, 1)
+        df: Counter    = Counter()
+        for tokens in self.tokenised:
+            df.update(set(tokens))
+        self.idf = {w: math.log((self.N - f + 0.5) / (f + 0.5) + 1) for w, f in df.items()}
+
+    def search(self, query: str, top_k=5) -> List[Tuple[int, float]]:
+        import re
+        from collections import Counter
+        q_terms = re.findall(r"[a-z0-9]+", query.lower())
+        scores  = []
+        for idx, tokens in enumerate(self.tokenised):
+            tf_map = Counter(tokens)
+            dl     = len(tokens)
+            score  = sum(
+                self.idf.get(t, 0) * (tf_map.get(t, 0) * (self.k1 + 1)) /
+                (tf_map.get(t, 0) + self.k1 * (1 - self.b + self.b * dl / self.avg_dl))
+                for t in q_terms
+            )
+            if score > 0:
+                scores.append((idx, score))
+        scores.sort(key=lambda x: x[1], reverse=True)
+        return scores[:top_k]
+
+class HybridRetriever:
+    """
+    Combines Dense (Semantic) and BM25 (Keyword) search using Reciprocal Rank Fusion (RRF).
+    """
+    def __init__(self, dense_retriever: DenseRetriever, k_rrf: int = 60):
+        self.dense = dense_retriever
+        self.k_rrf = k_rrf
+        # Extract passages from dense store to build BM25
+        print("  [HybridRetriever] Initialising BM25 index...")
+        passages = [dense_retriever.store[str(i)] for i in range(len(dense_retriever.store))]
+        self.bm25  = BM25(passages)
+
+    def search(self, query: str, top_k: int = 5, category_filter: str = "any") -> List[Dict]:
+        from collections import defaultdict
+        
+        # 1. Get Dense results
+        dense_results = self.dense.search(query, top_k=top_k*2, category_filter=category_filter)
+        
+        # 2. Get BM25 results
+        bm25_hits = self.bm25.search(query, top_k=top_k*2)
+        
+        # 3. Reciprocal Rank Fusion (RRF)
+        rrf_scores = defaultdict(float)
+        
+        # Add dense ranks
+        for rank, p in enumerate(dense_results):
+            p_id = p.get("section_id", str(rank))
+            rrf_scores[p_id] += 1.0 / (self.k_rrf + rank + 1)
+            
+        # Add BM25 ranks
+        for rank, (idx, score) in enumerate(bm25_hits):
+            p = self.bm25.passages[idx]
+            p_id = p.get("section_id", str(idx))
+            rrf_scores[p_id] += 1.0 / (self.k_rrf + rank + 1)
+            
+        # 4. Merge and re-rank
+        # Create a map of p_id to passage dict
+        id_to_passage = {p.get("section_id", str(i)): p for i, p in enumerate(dense_results)}
+        # Add missing ones from BM25
+        for idx, _ in bm25_hits:
+            p = self.bm25.passages[idx]
+            p_id = p.get("section_id", str(idx))
+            if p_id not in id_to_passage:
+                id_to_passage[p_id] = p
+                
+        # Sort by RRF score
+        sorted_ids = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+        
+        final_results = []
+        for p_id, rrf_score in sorted_ids[:top_k]:
+            passage = dict(id_to_passage[p_id])
+            passage["rrf_score"] = round(rrf_score, 6)
+            final_results.append(passage)
+            
+        return final_results
 
 def build_index_pipeline(
     kb_path:     str = "data/processed/kb_passages.jsonl",
@@ -284,6 +384,7 @@ def build_index_pipeline(
     output_dir:  str = "data/index",
     label:       str = "finetuned",
     batch_size:  int = 128,
+    max_passages: int = None,
 ):
     """
     Full pipeline:
@@ -306,6 +407,11 @@ def build_index_pipeline(
         raise FileNotFoundError(f"KB not found: {kb_path}")
     with open(kb_path) as f:
         passages = [json.loads(line) for line in f]
+    
+    if max_passages:
+        passages = passages[:max_passages]
+        print(f"  [TEST MODE] Truncated to first {max_passages} passages.")
+
     print(f"  Loaded {len(passages):,} passages from {kb_path}")
 
     # Embed + index
@@ -414,7 +520,7 @@ def benchmark_retrieval(
     out_path = Path("data/processed/retrieval_benchmark.json")
     with open(out_path, "w") as f:
         json.dump(report, f, indent=2)
-    print(f"  Benchmark saved → {out_path}")
+    print(f"  Benchmark saved -> {out_path}")
     return report
 
 
@@ -429,6 +535,8 @@ if __name__ == "__main__":
     parser.add_argument("--kb",         default="data/processed/kb_passages.jsonl")
     parser.add_argument("--output-dir", default="data/index")
     parser.add_argument("--batch-size", type=int, default=128)
+    parser.add_argument("--max-passages", type=int, default=None,
+                        help="Maximum number of passages to index (for quick testing)")
     parser.add_argument("--benchmark",  action="store_true",
                         help="Run retrieval benchmark after indexing")
     parser.add_argument("--base-only",  action="store_true",
@@ -438,10 +546,11 @@ if __name__ == "__main__":
     if args.base_only:
         build_index_pipeline(
             kb_path    = args.kb,
-            model_path = "sentence-transformers/all-MiniLM-L6-v2",
+            model_path = "BAAI/bge-base-en",
             output_dir = args.output_dir,
             label      = "base",
             batch_size = args.batch_size,
+            max_passages = args.max_passages,
         )
     else:
         build_index_pipeline(
@@ -450,6 +559,7 @@ if __name__ == "__main__":
             output_dir = args.output_dir,
             label      = args.label,
             batch_size = args.batch_size,
+            max_passages = args.max_passages,
         )
 
     if args.benchmark:

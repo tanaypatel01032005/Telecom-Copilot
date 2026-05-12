@@ -133,9 +133,10 @@ class SearchKBTool:
 
         # Try to load dense retriever
         try:
-            from src.retrieval.faiss_indexer import DenseRetriever
-            self._retriever = DenseRetriever(retriever_path, index_dir, label="finetuned")
-            print("  [SearchKB] Dense retriever loaded.")
+            from src.retrieval.faiss_indexer import DenseRetriever, HybridRetriever
+            dense = DenseRetriever(retriever_path, index_dir, label="finetuned")
+            self._retriever = HybridRetriever(dense)
+            print("  [SearchKB] Hybrid retriever (Dense + BM25) loaded.")
         except Exception as e:
             print(f"  [SearchKB] Dense retriever unavailable ({e}). Using BM25 fallback.")
             import sys
@@ -156,6 +157,7 @@ class SearchKBTool:
     def execute(self, params: Dict) -> Dict:
         query           = params.get("query", "").strip()
         category_filter = params.get("category_filter", "any")
+        force_telecom   = params.get("force_telecom", False)
         top_k           = int(params.get("top_k", 5))
 
         if not query:
@@ -177,6 +179,12 @@ class SearchKBTool:
             if category_filter != "any":
                 raw = [r for r in raw if r.get("category") == category_filter]
             candidates = raw
+
+        # Step 1b: Domain Guard - if force_telecom, throw away everything else
+        if force_telecom:
+            telecom_candidates = [c for c in candidates if c.get("source") == "telecom_overlay"]
+            if telecom_candidates:
+                candidates = telecom_candidates
 
         # Step 2: rerank if available
         if self._reranker and candidates:
@@ -559,7 +567,7 @@ def seed_network_status_feed(output_path: str = "data/raw/network_status.json"):
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w") as f:
         json.dump(feed, f, indent=2)
-    print(f"  Network status feed seeded → {output_path}")
+    print(f"  Network status feed seeded -> {output_path}")
     return feed
 
 

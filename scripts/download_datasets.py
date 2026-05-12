@@ -40,11 +40,11 @@ from pathlib import Path
 
 
 def download_multidoc2dial():
-    print("\n── Downloading MultiDoc2Dial ──────────────────────────")
+    print("\n-- Downloading MultiDoc2Dial --------------------------")
 
     from datasets import load_dataset
 
-    # ── Dialogue split (train / validation) ──────────────────────
+    # -- Dialogue split (train / validation) ----------------------
     # Fields per turn:
     #   role        : "agent" | "user"
     #   utterance   : the actual text spoken
@@ -63,13 +63,13 @@ def download_multidoc2dial():
         download_mode="reuse_dataset_if_exists"
     )
 
-    print("✓ Dialogue dataset loaded.")
-    print("✓ Cache reused if already downloaded.")
+    print("OK: Dialogue dataset loaded.")
+    print("OK: Cache reused if already downloaded.")
 
     print(f"  Dialogue train : {len(dial_ds['train']):,} turns")
     print(f"  Dialogue val   : {len(dial_ds['validation']):,} turns")
 
-    # ── Document split ────────────────────────────────────────────
+    # -- Document split --------------------------------------------
     # Fields per document:
     #   doc_id      : e.g. "Top 5 DMV Mistakes and How to Avoid Them#3_0"
     #   title       : human-readable title
@@ -84,8 +84,8 @@ def download_multidoc2dial():
         download_mode="reuse_dataset_if_exists"
     )
 
-    print("✓ Document dataset loaded.")
-    print("✓ Cache reused if already downloaded.")
+    print("OK: Document dataset loaded.")
+    print("OK: Cache reused if already downloaded.")
 
     print(f"  Documents      : {len(doc_ds['train']):,}")
 
@@ -98,7 +98,7 @@ def download_multidoc2dial():
     dial_ds.save_to_disk(str(out / "dialogues"))
     doc_ds.save_to_disk(str(out / "documents"))
 
-    print("✓ MultiDoc2Dial saved successfully.")
+    print("OK: MultiDoc2Dial saved successfully.")
 
     # Print one real example so you can see the structure
     print("\n  Sample dialogue record:")
@@ -131,7 +131,7 @@ def download_multidoc2dial():
 
 
 def download_shp2(n_samples: int = 5000):
-    print("\n── Downloading SHP-2 (customer-service subset) ─────────")
+    print("\n-- Downloading SHP-2 (customer-service subset) ---------")
 
     from datasets import load_dataset
 
@@ -168,8 +168,8 @@ def download_shp2(n_samples: int = 5000):
         download_mode="reuse_dataset_if_exists"
     )
 
-    print("✓ SHP-2 dataset loaded successfully.")
-    print("✓ Cache reused if already downloaded.")
+    print("OK: SHP-2 dataset loaded successfully.")
+    print("OK: Cache reused if already downloaded.")
 
     print(f"  Total SHP-2 samples: {len(ds):,}")
 
@@ -190,17 +190,16 @@ def download_shp2(n_samples: int = 5000):
         lambda x: str(x["domain"]).lower() in {
             d.lower() for d in USEFUL_DOMAINS
         }
-        and float(x["score_ratio"]) >= 2.0,
-        num_proc=4
+        and float(x["score_ratio"]) >= 2.0
     )
 
-    print(f"✓ After domain+ratio filter: {len(filtered):,}")
+    print(f"OK: After domain+ratio filter: {len(filtered):,}")
 
     # Take a capped subset to keep disk/memory usage reasonable
 
     subset = filtered.select(range(min(n_samples, len(filtered))))
 
-    print(f"✓ Using subset: {len(subset):,} samples")
+    print(f"OK: Using subset: {len(subset):,} samples")
 
     out = Path("data/raw/shp2")
     out.mkdir(parents=True, exist_ok=True)
@@ -209,7 +208,7 @@ def download_shp2(n_samples: int = 5000):
 
     subset.save_to_disk(str(out))
 
-    print("✓ SHP-2 saved successfully.")
+    print("OK: SHP-2 saved successfully.")
 
     # Print sample safely
 
@@ -230,8 +229,8 @@ def download_shp2(n_samples: int = 5000):
 
     else:
 
-        print("\n⚠ No rows matched filter.")
-        print("⚠ Please check actual domain names printed above.")
+        print("\n[!] No rows matched filter.")
+        print("[!] Please check actual domain names printed above.")
 
     return subset
 
@@ -246,5 +245,5 @@ if __name__ == "__main__":
 
     shp2_ds = download_shp2(n_samples=5000)
 
-    print("\n✓ All datasets downloaded.")
+    print("\nOK: All datasets downloaded.")
     print("  Next step: python src/ingestion/kb_builder.py")

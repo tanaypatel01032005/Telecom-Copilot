@@ -80,39 +80,28 @@ class BM25:
         return results
 
 
-# ─── Generator — un-tuned Flan-T5-base ────────────────────────────────────────
+# ─── Generator — un-tuned Flan-T5-base ────────────────────────────────────────────────────────────────────
 
 def load_generator():
     """
-    Loads Flan-T5-base WITHOUT any fine-tuning.
-    This is the baseline generator — same architecture as the full system
-    but without LoRA/DoRA or DPO alignment.
+    Skipping local model loading because we are using the Hugging Face API.
     """
+    return None, None
+
+
+def generate_with_hf_api(prompt: str) -> str:
+    """Generate using Hugging Face Serverless Inference API for Llama-3-8B-Instruct."""
     try:
-        from transformers import T5ForConditionalGeneration, T5Tokenizer
-        tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-base")
-        model     = T5ForConditionalGeneration.from_pretrained("google/flan-t5-base")
-        print("  [Baseline] Loaded Flan-T5-base (un-tuned).")
-        return model, tokenizer
+        from huggingface_hub import InferenceClient
+        import os
+        # Use environment variable for HF_TOKEN
+        token = os.environ.get("HF_TOKEN")
+        client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct", token=os.environ.get("HF_TOKEN"))
+        messages = [{"role": "user", "content": prompt}]
+        response = client.chat_completion(messages=messages, max_tokens=150)
+        return response.choices[0].message.content.strip()
     except Exception as e:
-        print(f"  [Baseline] Could not load Flan-T5 ({e}). Using Anthropic API fallback.")
-        return None, None
-
-
-def generate_with_flan(model, tokenizer, prompt: str, max_new_tokens=150) -> str:
-    """Generate using un-tuned Flan-T5."""
-    import torch
-    inputs = tokenizer(
-        prompt, return_tensors="pt", max_length=512, truncation=True
-    )
-    with torch.no_grad():
-        outputs = model.generate(
-            **inputs,
-            max_new_tokens=max_new_tokens,
-            num_beams=4,
-            early_stopping=True,
-        )
-    return tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+        return f"[GENERATION ERROR: {e}]"
 
 
 def generate_with_api(prompt: str) -> str:
@@ -188,12 +177,9 @@ class BaselineSystem:
         # Step 1: BM25 retrieval (un-tuned)
         retrieved = self.retriever.search(query, top_k=5)
 
-        # Step 2: Generate (un-tuned, no rubric)
+        # Step 2: Generate with Hugging Face API
         prompt = build_baseline_prompt(query, retrieved, history)
-        if self.model is not None:
-            answer = generate_with_flan(self.model, self.tokenizer, prompt)
-        else:
-            answer = generate_with_api(prompt)
+        answer = generate_with_hf_api(prompt)
 
         return {
             "system":     "baseline",
@@ -208,12 +194,16 @@ class BaselineSystem:
             "latency_ms": round(time.time() * 1000 - start_ms, 1),
         }
 
-    def batch_run(self, test_cases: List[Dict]) -> List[Dict]:
-        results = []
-        for i, case in enumerate(test_cases):
-            print(f"  [{i+1:03d}/{len(test_cases)}] {case['query'][:60]}...")
-            result = self.run(case["query"], case.get("history", []))
-            result.update({
+    def batch_run(self, test_cases: List[Dict], max_workers: int = 10) -> List[Dict]:
+        """Runs the baseline system on all test cases using parallel threads."""
+        from concurrent.futures import ThreadPoolExecutor
+        results = [None] * len(test_cases)
+        
+        def _process(idx):
+            case = test_cases[idx]
+            print(f"  [Baseline] [{idx+1:03d}/{len(test_cases)}] {case['query'][:50]}...")
+            res = self.run(case["query"], case.get("history", []))
+            res.update({
                 "test_id":          case.get("test_id"),
                 "gold_doc_id":      case.get("gold_doc_id"),
                 "gold_section_id":  case.get("gold_section_id"),
@@ -223,7 +213,12 @@ class BaselineSystem:
                 "domain":           case.get("domain", "unknown"),
                 "source":           case.get("source", "unknown"),
             })
-            results.append(result)
+            results[idx] = res
+
+        print(f"\n  [Baseline] Starting parallel batch run with {max_workers} workers...")
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            list(executor.map(_process, range(len(test_cases))))
+            
         return results
 
 
@@ -268,4 +263,4 @@ if __name__ == "__main__":
             with open(out, "w") as f:
                 for r in results:
                     f.write(json.dumps(r, default=str) + "\n")
-            print(f"Saved {len(results)} results → {out}")
+            print(f"Saved {len(results)} results -> {out}")

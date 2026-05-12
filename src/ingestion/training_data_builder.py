@@ -162,7 +162,7 @@ def build_retriever_triples(
         for t in triples:
             f.write(json.dumps(t) + "\n")
 
-    print(f"  Saved {len(triples):,} retriever triples → {output_path}")
+    print(f"  Saved {len(triples):,} retriever triples -> {output_path}")
     return triples
 
 
@@ -288,7 +288,7 @@ def build_generator_sft_pairs(
         for p in pairs:
             f.write(json.dumps(p) + "\n")
 
-    print(f"  Saved {len(pairs):,} generator SFT pairs → {output_path}")
+    print(f"  Saved {len(pairs):,} generator SFT pairs -> {output_path}")
     return pairs
 
 
@@ -422,7 +422,7 @@ def build_dpo_pairs(
 
     from collections import Counter
     sources = Counter(p["source"] for p in dpo_pairs)
-    print(f"  Saved {len(dpo_pairs):,} DPO pairs → {output_path}")
+    print(f"  Saved {len(dpo_pairs):,} DPO pairs -> {output_path}")
     print(f"    md2d: {sources['md2d']:,}  |  shp2: {sources['shp2']:,}")
     return dpo_pairs
 
@@ -612,7 +612,7 @@ def build_eval_test_set(
 
     from collections import Counter
     sources = Counter(c["source"] for c in cases)
-    print(f"  Saved {len(cases):,} test cases → {output_path}")
+    print(f"  Saved {len(cases):,} test cases -> {output_path}")
     print(f"    multidoc2dial_validation: {sources['multidoc2dial_validation']:,}")
     print(f"    telecom_handcrafted:      {sources['telecom_handcrafted']:,}")
     return cases

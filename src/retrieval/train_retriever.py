@@ -200,7 +200,7 @@ def evaluate_retriever(
 # ─── Main training function ───────────────────────────────────────────────────
 
 def train_retriever(
-    base_model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+    base_model_name: str = "BAAI/bge-base-en",
     triples_path:    str = "data/processed/retriever_train.jsonl",
     span_index_path: str = "data/processed/span_index.json",
     output_dir:      str = "checkpoints/retriever",
@@ -277,7 +277,7 @@ def train_retriever(
         save_best_model    = True,
         show_progress_bar  = True,
     )
-    print(f"\n  Model saved → {output_dir}")
+    print(f"\n  Model saved -> {output_dir}")
 
     # ── Evaluate AFTER fine-tuning ─────────────────────────────────
     print("\n  Evaluating FINE-TUNED model (after training)...")
@@ -312,7 +312,7 @@ def train_retriever(
     report_path = Path(output_dir) / "retriever_metrics.json"
     with open(report_path, "w") as f:
         json.dump(report, f, indent=2)
-    print(f"\n  Metrics saved → {report_path}")
+    print(f"\n  Metrics saved -> {report_path}")
     return finetuned_model, report
 
 
@@ -324,7 +324,7 @@ if __name__ == "__main__":
                         help="Quick smoke test (2000 samples, 1 epoch)")
     parser.add_argument("--eval",       action="store_true",
                         help="Evaluate saved model only (no training)")
-    parser.add_argument("--base-model", default="sentence-transformers/all-MiniLM-L6-v2")
+    parser.add_argument("--base-model", default="BAAI/bge-base-en")
     parser.add_argument("--epochs",     type=int,   default=3)
     parser.add_argument("--batch-size", type=int,   default=32)
     parser.add_argument("--max-samples",type=int,   default=10000)

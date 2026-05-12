@@ -96,7 +96,7 @@ def build_reranker_dataset(
 # ─── Train reranker ───────────────────────────────────────────────────────────
 
 def train_reranker(
-    base_model:  str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    base_model:  str = "BAAI/bge-reranker-base",
     output_dir:  str = "checkpoints/reranker",
     max_samples: int = 8000,
     num_epochs:  int = 2,
@@ -159,7 +159,7 @@ def train_reranker(
         show_progress_bar= True,
         optimizer_params = {"lr": lr},
     )
-    print(f"\n  Reranker saved → {output_dir}")
+    print(f"\n  Reranker saved -> {output_dir}")
 
     # ── Evaluate after training ────────────────────────────────────
     print("\n  Fine-tuned model evaluation (after training)...")
@@ -255,7 +255,17 @@ class Reranker:
         scores = self.model.predict(pairs, show_progress_bar=False)
 
         for p, score in zip(passages, scores):
-            p["rerank_score"] = round(float(score), 4)
+            # 1. Base cross-encoder score
+            final_score = float(score)
+            
+            # 2. Add retriever RRF boost
+            final_score += p.get("rrf_score", 0.0) * 5.0
+            
+            # 3. Domain Bias: Huge boost for telecom documents
+            if p.get("source") == "telecom_overlay":
+                final_score += 1.5  # Ensure telecom docs always beat general ones if relevant
+            
+            p["rerank_score"] = round(final_score, 4)
 
         reranked = sorted(passages, key=lambda x: x["rerank_score"], reverse=True)
         return reranked[:top_k]
