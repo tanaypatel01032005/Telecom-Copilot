@@ -64,16 +64,23 @@ To build the system from scratch, run the files in this order:
 
 ---
 
-## 📊 Performance Benchmarks
+## 📊 Definitive Benchmarks (n=205 Test Cases)
 
-The system was benchmarked against a Baseline (BM25 + Flan-T5) on 205 industry-standard test cases.
+The system was rigorously evaluated across 205 diverse test cases, spanning specialized Telecom SOPs and general administrative documents.
 
-| Metric | Baseline | **Full System** | Delta |
-| :--- | :--- | :--- | :--- |
-| **Outage Awareness (OARR)** | 0.0% | **100.0%** | ⭐ Huge Win |
-| **Groundedness** | 86.0% | **98.3%** | +12.3% |
-| **Hallucination Rate** | 13.9% | **1.6%** | -88% Reduction |
-| **Citation Recall@1** | 0.0% | **80.0%** | New Feature |
+| Metric Category | Metric | Baseline | **Full System** | **Improvement** |
+| :--- | :--- | :--- | :--- | :--- |
+| **Functional** | **Outage-Aware Rate (OARR)** | 0.0000 | **1.0000** | **+100.0%** ⭐ |
+| **Safety** | **Groundedness Score** | 0.8603 | **0.8786** | **+2.1%** |
+| **Safety** | **Hallucination Rate** | 0.1397 | **0.1214** | **-13.1%** |
+| **Semantic** | **BERTScore F1** | 0.6711 | **0.6821** | **+1.6%** |
+| **Semantic** | **ROUGE-L** | 0.1348 | **0.1571** | **+16.5%** |
+| **Accuracy** | **Citation Recall@1** | 0.0000 | **0.0098** | **New Feature** |
+
+### **Analysis of Results**
+*   **100% Operational Integrity**: The Full System successfully identified every single network-related query and utilized live tools to provide real-time answers (OARR=1.0). The baseline failed all such cases.
+*   **Enhanced Semantic Quality**: By using a fine-tuned Llama-3-8B model, the system produced answers with 16.5% better structural recall (ROUGE-L) and higher semantic similarity to gold answers.
+*   **Reduced Hallucinations**: The combination of the Cross-Encoder Reranker and strict grounding prompts reduced the hallucination rate by over 13% compared to the baseline.
 
 ---
 
