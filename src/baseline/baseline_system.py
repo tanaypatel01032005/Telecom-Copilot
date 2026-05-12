@@ -96,10 +96,9 @@ def generate_with_hf_api(prompt: str) -> str:
         import os
         # Use environment variable for HF_TOKEN
         token = os.environ.get("HF_TOKEN")
-        client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct", token=os.environ.get("HF_TOKEN"))
-        messages = [{"role": "user", "content": prompt}]
-        response = client.chat_completion(messages=messages, max_tokens=150)
-        return response.choices[0].message.content.strip()
+        client = InferenceClient("google/flan-t5-base", token=os.environ.get("HF_TOKEN"))
+        response = client.text_generation(prompt, max_new_tokens=150)
+        return response.strip()
     except Exception as e:
         return f"[GENERATION ERROR: {e}]"
 

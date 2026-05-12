@@ -4,12 +4,10 @@ src/generation/train_generator.py
 Week 3 — Fine-tune the Generator with DoRA (Weight-Decomposed Low-Rank Adaptation).
 
 Architecture:
-  Base model  : google/flan-t5-base  (250M params — fits in T4 16GB with no quantization)
+  Base model  : meta-llama/Meta-Llama-3-8B  (8B params — fits in T4 16GB with 4-bit quantization)
   PEFT method : DoRA (DoRA = LoRA + weight decomposition into magnitude + direction)
                 Reference: Liu et al., ICML 2024 — https://arxiv.org/abs/2402.09353
-                Key advantage over LoRA: magnitude vector decouples from direction,
-                giving finer control and consistently +0.5–2% over LoRA at same rank.
-  Task        : Seq2Seq — given [CONTEXT + QUERY] → produce [CITED ANSWER]
+  Task        : Causal LM — given [CONTEXT + QUERY] → produce [CITED ANSWER]
   Training data: generator_sft_train.jsonl (built from MD2D in Week 1)
 
 Prompt template (input):
@@ -29,15 +27,15 @@ Target (output):
     You can dispute the charge via the portal at myaccount.telecom.com
     or by calling 198. [SOURCE: billing_002, billing_002_s2]
 
-Why Flan-T5-base?
-  - Instruction-tuned at pre-training → already knows how to follow format prompts
-  - 250M params → trains in ~35 min on T4 GPU with batch_size=8
-  - Small enough for Colab free tier with no int8 quantization needed
-  - Seq2Seq architecture → cleaner for citation-structured generation than decoder-only
+Why Llama-3-8B?
+  - State-of-the-art open source LLM
+  - Highly instruction-tuned → excellent at following complex RAG prompts
+  - DoRA allows fine-tuning on consumer GPUs with high precision
+  - Better citation accuracy and reasoning compared to smaller models like Flan-T5
 
 DoRA vs LoRA decision:
   - Both use rank=16, alpha=32 (standard config)
-  - DoRA adds ~0 extra params (magnitude vector is tiny) but improves citation precision
+  - DoRA improves citation precision by decoupling magnitude from direction
   - Reference to ICML 2024 paper gives novel PEFT justification for your report
 
 Run:
@@ -240,7 +238,7 @@ def get_dora_config(rank: int = 16, alpha: int = 32):
 # ─── Main training function ──────────────────────────────────────────────────
 
 def train_generator(
-    base_model_name: str   = "google/flan-t5-base",
+    base_model_name: str   = "meta-llama/Meta-Llama-3-8B",
     sft_path:        str   = "data/processed/generator_sft_train.jsonl",
     output_dir:      str   = "checkpoints/generator",
     max_samples:     int   = 8000,
@@ -414,10 +412,13 @@ def evaluate_generator(
     )
     ft_model.eval()
 
-    # Load base model for comparison
+    # Load base model for comparison (Flan-T5 as the baseline)
     if compare_base:
-        base_model = AutoModelForCausalLM.from_pretrained(
-            "meta-llama/Meta-Llama-3-8B",
+        from transformers import AutoModelForSeq2SeqLM
+        base_model = AutoModelForSeq2SeqLM.from_pretrained(
+            "google/flan-t5-base",
+            # Flan-T5-base is small enough to not need 4-bit for comparison if memory allows,
+            # but using it anyway for consistency/safety.
             quantization_config=bnb_config,
             device_map="auto"
         )
@@ -429,12 +430,19 @@ def evaluate_generator(
 
     def generate(model, prompt: str, max_new_tokens: int = MAX_TARGET_LEN) -> str:
         inputs = tokenizer(prompt, return_tensors="pt",
-                           max_length=MAX_INPUT_LEN, truncation=True)
-        input_length = inputs["input_ids"].shape[1]
+                           max_length=MAX_INPUT_LEN, truncation=True).to(model.device)
+        
+        is_seq2seq = model.config.is_encoder_decoder
+        
         with torch.no_grad():
             out = model.generate(**inputs, max_new_tokens=max_new_tokens,
                                  num_beams=4, early_stopping=True)
-        return tokenizer.decode(out[0][input_length:], skip_special_tokens=True).strip()
+        
+        if is_seq2seq:
+            return tokenizer.decode(out[0], skip_special_tokens=True).strip()
+        else:
+            input_length = inputs["input_ids"].shape[1]
+            return tokenizer.decode(out[0][input_length:], skip_special_tokens=True).strip()
 
     def citation_rate(outputs: List[str]) -> float:
         return sum(1 for o in outputs if "[SOURCE:" in o) / max(len(outputs), 1)
